@@ -1,0 +1,37 @@
+# Use clang by default
+build --repo_env=CC=clang
+
+# C++17
+build --cxxopt='-std=c++20' 
+
+# Warnings
+build --cxxopt='-Wall'
+build --cxxopt='-Werror'
+build --cxxopt='-Wextra'
+build --cxxopt='-Wextra-semi'
+build --cxxopt='-Wconversion'
+build --cxxopt='-Wnewline-eof'
+build --cxxopt='-Wstrict-prototypes'
+build --cxxopt='-Wold-style-cast'
+build --cxxopt='-Wno-unused-parameter'
+build --cxxopt='-Wnonportable-system-include-path'
+build --cxxopt='-Wwrite-strings'
+build --cxxopt='-Wimplicit-fallthrough'
+
+# Configuration
+build --cxxopt='-fno-exceptions'
+build --cxxopt='-fno-rtti'
+build --cxxopt='-fomit-frame-pointer'
+build --cxxopt='-funwind-tables'
+
+# Gather coverage
+coverage --repo_env=CC=clang
+coverage --repo_env=BAZEL_USE_LLVM_NATIVE_COVERAGE=1
+coverage --repo_env=GCOV=llvm-profdata
+coverage --cxxopt='--coverage'
+coverage --cxxopt='-fprofile-instr-generate'
+coverage --cxxopt='-fcoverage-mapping'
+coverage --combined_report=lcov
+coverage --experimental_use_llvm_covmap
+coverage --instrumentation_filter=
+coverage --nocache_test_results
